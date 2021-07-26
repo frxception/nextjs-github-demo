@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { searchRepos } from '@src/service/github';
 import RepoList from '@src/components/RepoList';
 import styles from '@styles/Home.module.css'
-import NavBar from '@src/components/NavBar';
 import Search from '@src/components/Search';
 
 type Props = {
@@ -15,24 +14,22 @@ type Props = {
 const Home:FC<Props> = (props) => {
   const [searchText, setSearchText] = useState(props.searchText);
   const [repos, setRepos] = useState(props.repos);
-  const [language, setLanguage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const onSearchTextChange = (text: string) => {
     setSearchText(text);
     if (text) {
-      loadRepos(text, language);
+      loadRepos(text);
     }
   };
 
-  const onLanguageChange = (language) => {
-    setLanguage(language);
-    loadRepos(searchText, language);
+  const onLanguageChange = () => {
+    loadRepos(searchText);
   };
 
-  const loadRepos = async (searchText, language) => {
+  const loadRepos = async (searchText) => {
     setLoading(true);
-    const res = await searchRepos(searchText, language);
+    const res = await searchRepos(searchText);
     if (res && res.data) {
       setLoading(false);
       setRepos(res.data.items);
@@ -42,7 +39,6 @@ const Home:FC<Props> = (props) => {
   return (
     
     <>
-      <NavBar />
       <div className={styles.container}>
         <Head>
           <title>Create Next App</title>
@@ -59,43 +55,11 @@ const Home:FC<Props> = (props) => {
           
           <Search
             searchText={searchText}
-            language={language}
             onSearchTextChange={onSearchTextChange}
             onLanguageChange={onLanguageChange}
           />
           
           <RepoList loading={loading} repos={repos} />
-          
-          {/* <div className={styles.grid}>
-            <a href="https://nextjs.org/docs" className={styles.card}>
-              <h2>Documentation &rarr;</h2>
-              <p>Find in-depth information about Next.js features and API.</p>
-            </a>
-
-            <a href="https://nextjs.org/learn" className={styles.card}>
-              <h2>Learn &rarr;</h2>
-              <p>Learn about Next.js in an interactive course with quizzes!</p>
-            </a>
-
-            <a
-              href="https://github.com/vercel/next.js/tree/master/examples"
-              className={styles.card}
-            >
-              <h2>Examples &rarr;</h2>
-              <p>Discover and deploy boilerplate example Next.js projects.</p>
-            </a>
-
-            <a
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              className={styles.card}
-            >
-              <h2>Deploy &rarr;</h2>
-              <p>
-                Instantly deploy your Next.js site to a public URL with Vercel.
-              </p>
-            </a>
-          </div> */}
-
 
         </main>
 
@@ -118,8 +82,8 @@ const Home:FC<Props> = (props) => {
 
 
 export const getServerSideProps = async () => {
-  const searchText = 'beer'; //default search word
-  const res = await searchRepos(searchText, "");
+  const searchText = 'nextjs'; //default search word
+  const res = await searchRepos(searchText);
 
   return {
     props: {

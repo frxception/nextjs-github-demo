@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getProfile = exports.getRepo = exports.searchRepos = void 0;
 var axios_1 = require("axios");
 var axiosConfig = {
     baseURL: 'https://api.github.com/',
@@ -45,56 +44,17 @@ var axiosConfig = {
         password: process.env.GITHUB_CLIENT_SECRET
     }
 };
-var axiosGetCancellable = function (url) { return __awaiter(void 0, void 0, void 0, function () {
-    var cancelConfig, res, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+exports["default"] = (function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, q, sort, order, response;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                cancelConfig = {
-                    request: null,
-                    cancelToken: null
-                };
-                if (cancelConfig.request) {
-                    cancelConfig.request.cancel('canceled');
-                }
-                cancelConfig.request = axios_1["default"].CancelToken.source();
-                cancelConfig.cancelToken = cancelConfig.request.token;
-                _a.label = 1;
+                _a = req.query, q = _a.q, sort = _a.sort, order = _a.order;
+                return [4 /*yield*/, axios_1["default"].get("search/repositories?q=" + q + "&sort=" + sort + "&order=" + order, axiosConfig)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axios_1["default"].get(url, cancelConfig)];
-            case 2:
-                res = _a.sent();
-                return [2 /*return*/, res];
-            case 3:
-                error_1 = _a.sent();
-                if (error_1.message !== 'canceled') {
-                    throw error_1;
-                }
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                response = _b.sent();
+                res.json(response.data);
+                return [2 /*return*/];
         }
     });
-}); };
-var searchRepos = function (searchText, language) { return __awaiter(void 0, void 0, void 0, function () {
-    var query;
-    return __generator(this, function (_a) {
-        query = language ? searchText + "+language:" + language : searchText;
-        if (isServer()) {
-            return [2 /*return*/, axios_1["default"].get("search/repositories?q=" + query + "&sort=stars&order=desc", axiosConfig)];
-        }
-        return [2 /*return*/, axiosGetCancellable("api/search?q=" + query + "&sort=stars&order=desc")];
-    });
-}); };
-exports.searchRepos = searchRepos;
-function getRepo(id) {
-    return axios_1["default"].get("repositories/" + id, axiosConfig);
-}
-exports.getRepo = getRepo;
-function getProfile(username) {
-    return axios_1["default"].get("users/" + username, axiosConfig);
-}
-exports.getProfile = getProfile;
-function isServer() {
-    return typeof window === 'undefined';
-}
+}); });

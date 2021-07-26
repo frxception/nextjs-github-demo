@@ -30,7 +30,8 @@ const axiosGetCancellable = async(url) => {
   }
 }
 
-const searchRepos = async(searchText: string, language: any) => {
+const searchRepos = async(searchText: string) => {
+  const language = ''; //TODO: change and make this dynamic
   const query = language ? `${searchText}+language:${language}` : searchText;
 
   if (isServer()) {
@@ -41,15 +42,15 @@ const searchRepos = async(searchText: string, language: any) => {
   return axiosGetCancellable(`api/search?q=${query}&sort=stars&order=desc`);
 }
 
-function getRepo(id) {
+const getRepo = (id: number) => {
   return axios.get(`repositories/${id}`, axiosConfig);
 }
 
-function getProfile(username) {
+const getProfile = (username: string) => {
   return axios.get(`users/${username}`, axiosConfig);
 }
 
-function isServer() {
+const isServer = () => {
   return typeof window === 'undefined';
 }
 

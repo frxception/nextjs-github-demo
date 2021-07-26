@@ -1,16 +1,20 @@
 
+.container{
+  padding: 40px;
+}
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 100px;
+  font-size: 2em;
 }
 
 
 .description {
-  padding-bottom: 20px;
+  padding: 40px;
 }
 
 .language {
   font-weight: 500;
-  color: green;
+  color: rgb(15, 77, 134);
   font-size: 24px;
   padding-bottom: 15px;
 }

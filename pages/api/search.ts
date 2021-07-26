@@ -10,7 +10,6 @@ const axiosConfig = {
 
 export default async (req, res) => {
   const { q, sort, order } = req.query;
-  console.log(">>>> axisConfig: ", axiosConfig)
   const response = await axios.get(
     `search/repositories?q=${q}&sort=${sort}&order=${order}`,
     axiosConfig

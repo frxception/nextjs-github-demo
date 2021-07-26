@@ -2,13 +2,12 @@ import React, { FC } from 'react';
 import styles from '@styles/Search.module.css'
 
 type Props = {
-  label: string, 
   value: string, 
   onChange: (any)=> void, 
   placeholder: string, 
   className: string
 }
-const TextInput:FC<Props> = ({ label, value, onChange, placeholder, className }) => {
+const TextInput:FC<Props> = ( {value, onChange, placeholder, className }) => {
   const textInputClass = className ? `${className} field` : 'field';
 
   return (

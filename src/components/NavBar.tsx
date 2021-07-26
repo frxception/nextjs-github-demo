@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import styles from "../../styles/NavBar.module.css";
+import styles from "@styles/NavBar.module.css";
 import GreenlandLogoImg from "../assets/images/logo.png";
 import Image from "next/image";
 
@@ -16,7 +16,7 @@ const Logo = () => (
 
 const ActionButtons = () => (
   <div className={styles.actionContainer}>
-    <button className={styles.homeBtn}>Home</button>
+    <button className={styles.homeBtn}><Link href="/">Home</Link></button>
     <button className={styles.aboutBtn}>About</button>
   </div>
 );

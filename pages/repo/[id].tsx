@@ -7,8 +7,7 @@ import UserAvatar from '@src/components/UserAvatar';
 
 const Repo = ({ repo }) => {
   return (
-    <div>
-      <ButtonLink href="/" text="Back" />
+    <div className={styles.container}>
 
       <div className={styles.header}>
         <span>{repo.name}</span>
@@ -17,9 +16,9 @@ const Repo = ({ repo }) => {
       <div className={styles.description}>{repo.description}</div>
       <div className={styles.language}>{repo.language}</div>
 
-      <ButtonLink
+      <ButtonLink 
         href={repo.html_url}
-        text="View on Github"
+        text="Go to Github page >"
         type="dark"
         target="_blank"
         external
