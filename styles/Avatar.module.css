@@ -1,0 +1,32 @@
+.user {
+    display: flex;
+    margin-bottom: 30px;
+  }
+  
+  .userLink {
+    margin-top: 5px;
+    margin-left: 50px;
+    color: green;
+  }
+  
+  .userLink:hover{
+      color: orange;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: relative;
+  }
+  
+  .isRounded{
+    border-radius: 9999px;
+  }
+
+  .figure{
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+  }

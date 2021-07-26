@@ -1,9 +1,44 @@
+import React, { FC, useState } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
+import { searchRepos } from '@src/service/github';
+import RepoList from '@src/components/RepoList';
 import styles from '@styles/Home.module.css'
 import NavBar from '@src/components/NavBar';
+import Search from '@src/components/Search';
 
-export default function Home() {
+type Props = {
+  searchText: string,
+  repos: any[],
+}
+
+const Home:FC<Props> = (props) => {
+  const [searchText, setSearchText] = useState(props.searchText);
+  const [repos, setRepos] = useState(props.repos);
+  const [language, setLanguage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const onSearchTextChange = (text: string) => {
+    setSearchText(text);
+    if (text) {
+      loadRepos(text, language);
+    }
+  };
+
+  const onLanguageChange = (language) => {
+    setLanguage(language);
+    loadRepos(searchText, language);
+  };
+
+  const loadRepos = async (searchText, language) => {
+    setLoading(true);
+    const res = await searchRepos(searchText, language);
+    if (res && res.data) {
+      setLoading(false);
+      setRepos(res.data.items);
+    }
+  };
+
   return (
     
     <>
@@ -16,16 +51,22 @@ export default function Home() {
         </Head>
 
         <main className={styles.main}>
-          <h1 className={styles.title}>
-            Welcome to <a href="https://nextjs.org">Next.js!</a>
-          </h1>
 
-          <p className={styles.description}>
-            Get started by editing{' '}
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-
-          <div className={styles.grid}>
+       
+          <div className={styles.githubImg}>
+            <Image src="/github-img.png" alt="Gihub Image Logo" width={400} height={280} />
+          </div>
+          
+          <Search
+            searchText={searchText}
+            language={language}
+            onSearchTextChange={onSearchTextChange}
+            onLanguageChange={onLanguageChange}
+          />
+          
+          <RepoList loading={loading} repos={repos} />
+          
+          {/* <div className={styles.grid}>
             <a href="https://nextjs.org/docs" className={styles.card}>
               <h2>Documentation &rarr;</h2>
               <p>Find in-depth information about Next.js features and API.</p>
@@ -53,7 +94,9 @@ export default function Home() {
                 Instantly deploy your Next.js site to a public URL with Vercel.
               </p>
             </a>
-          </div>
+          </div> */}
+
+
         </main>
 
         <footer className={styles.footer}>
@@ -72,3 +115,19 @@ export default function Home() {
     </>
   )
 }
+
+
+export const getServerSideProps = async () => {
+  const searchText = 'beer'; //default search word
+  const res = await searchRepos(searchText, "");
+
+  return {
+    props: {
+      searchText: searchText,
+      repos: res.data.items
+    }
+  };
+};
+
+
+export default Home;
