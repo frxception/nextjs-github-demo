@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import styles from "@styles/NavBar.module.css";
-import GreenlandLogoImg from "../assets/images/logo.png";
+import logoImg from "../assets/images/logo.png";
 import Image from "next/image";
 
 const Logo = () => (
   <div className={styles.logoWrapper}>
     <div className={styles.logoImg}>
-      <Image src={GreenlandLogoImg} alt="NextJS" />
+      <Image src={logoImg} alt="NextJS" />
     </div>
     <h2 className={styles.logoTxth2}>GitHub Demo</h2>
   </div>
