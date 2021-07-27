@@ -2,6 +2,7 @@
 .github
 .vscode
 coverage
+dist
 *.md
 # .prettierrc
 *.log
