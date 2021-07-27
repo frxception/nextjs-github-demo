@@ -1,6 +1,6 @@
 # Nextjs Github Demo App
 
-#### Deployed codes [See live app](https://zilliqa-react-demo-app-1wkxm050h-frxception.vercel.app/)
+#### Deployed codes [See live app](https://nextjs-github-demo.vercel.app/)
 
 
 
