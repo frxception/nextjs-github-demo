@@ -1,0 +1,21 @@
+.git
+.github
+.vscode
+coverage
+*.md
+# .prettierrc
+*.log
+*.md
+nodemon*.json
+
+# Secrets
+# .env
+
+# Node Files
+# node_modules
+npm-debug.log
+npm-debug.log.*
+
+# Source files
+test
+docs

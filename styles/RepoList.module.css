@@ -2,11 +2,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-top: 40px;
+    padding-top: 60px;
   }
   
   .loader {
-    padding-top: 20px;
+    padding-top: 50px;
     width: 200px;
   }
   
